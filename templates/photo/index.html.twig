@@ -9,9 +9,9 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Date_prise_vue</th>
-                <th>Nom_fichier</th>
-                <th>Etat_oeuvre</th>
+                <th>Date prise de vue</th>
+                <th>Nom fichier</th>
+                <th>Etat de l'oeuvre</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,17 +23,17 @@
                 <td>{{ photo.nomFichier }}</td>
                 <td>{{ photo.etatOeuvre }}</td>
                 <td>
-                    <a href="{{ path('app_photo_show', {'id': photo.id}) }}">show</a>
-                    <a href="{{ path('app_photo_edit', {'id': photo.id}) }}">edit</a>
+                    <a href="{{ path('app_photo_show', {'id': photo.id}) }}">Voir</a>
+                    <a href="{{ path('app_photo_edit', {'id': photo.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Pas de photos trouvées</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_photo_new') }}">Create new</a>
+    <a href="{{ path('app_photo_new') }}">Ajouter</a>
 {% endblock %}

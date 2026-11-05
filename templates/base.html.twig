@@ -2,15 +2,214 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Art De Rue{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
 
         {% block javascripts %}{% endblock %}
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+        <style>
+            :root {
+                --page-bg: #f4f6f9;
+                --surface: #fff;
+                --ink: #202b3c;
+                --muted: #627086;
+                --line: #e1e6ee;
+                --accent: #285bca;
+                --accent-hover: #1d459c;
+            }
+
+            body {
+                margin: 0;
+                padding: 0 clamp(1rem, 4vw, 4rem) 3rem;
+                background: var(--page-bg);
+                color: var(--ink);
+                font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+                line-height: 1.6;
+            }
+
+            body > .navbar {
+                margin-inline: clamp(-4rem, -4vw, -1rem);
+                margin-bottom: 2.5rem;
+                padding: .9rem clamp(1rem, 4vw, 4rem);
+                background: var(--surface) !important;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .navbar .container-fluid { padding-inline: 0; gap: 1.5rem; }
+            .navbar-brand { color: var(--ink); font-weight: 800; letter-spacing: -.04em; }
+            .navbar-nav { gap: .35rem; }
+            .navbar .nav-link {
+                padding: .5rem .85rem;
+                border-radius: .5rem;
+                color: var(--muted);
+                font-weight: 600;
+            }
+            .navbar .nav-link:hover,
+            .navbar .nav-link:focus-visible { background: #edf2ff; color: var(--accent); }
+            .offcanvas { background: var(--surface); }
+            .navbar .offcanvas-body { align-items: center; gap: 1.5rem; }
+            .connexion {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-left: auto;
+                min-width: 0;
+            }
+            .connexion-user { margin: 0; min-width: 0; font-size: .8rem; color: var(--muted); }
+            .connexion-user span,
+            .connexion-user strong { display: block; }
+            .connexion-user strong { color: var(--ink); overflow-wrap: anywhere; }
+            .connexion .btn { flex-shrink: 0; white-space: nowrap; }
+            .connexion .connexion-logout { background: var(--surface); color: var(--accent); }
+            .connexion .connexion-logout:hover { background: #edf2ff; border-color: var(--accent); }
+
+            @media (min-width: 576px) and (max-width: 1199px) {
+                .navbar .offcanvas-body { flex-wrap: wrap; gap: .75rem; }
+                .connexion { flex-wrap: wrap; }
+            }
+
+            @media (max-width: 575px) {
+                .connexion {
+                    flex-direction: column;
+                    align-items: stretch;
+                    gap: .85rem;
+                    margin: 1.5rem 0 0;
+                    padding-top: 1.25rem;
+                    border-top: 1px solid var(--line);
+                }
+                .connexion .btn { width: 100%; }
+            }
+
+            h1 {
+                margin: 0 0 1.75rem;
+                font-size: clamp(1.75rem, 3vw, 2.5rem);
+                font-weight: 750;
+                letter-spacing: -.045em;
+            }
+
+            a { color: var(--accent); text-underline-offset: .2em; }
+            a:hover { color: var(--accent-hover); }
+            :where(a, button, input, select, textarea):focus-visible {
+                outline: 3px solid #8caeff;
+                outline-offset: 3px;
+            }
+
+            .table {
+                --bs-table-bg: var(--surface);
+                --bs-table-color: var(--ink);
+                --bs-table-border-color: var(--line);
+                width: 100%;
+                margin-bottom: 1.5rem;
+                border-collapse: separate;
+                border-spacing: 0;
+                border: 1px solid var(--line);
+                border-radius: .85rem;
+                box-shadow: 0 4px 20px #202b3c05;
+            }
+            .table > :not(caption) > * > * {
+                padding: 1rem 1.15rem;
+                vertical-align: middle;
+                overflow-wrap: anywhere;
+            }
+            .table thead th {
+                background: #edf1f7;
+                color: #4a5870;
+                font-size: .78rem;
+                font-weight: 700;
+                letter-spacing: .05em;
+                text-transform: uppercase;
+            }
+            .table tr:first-child > :first-child { border-top-left-radius: .8rem; }
+            .table tr:first-child > :last-child { border-top-right-radius: .8rem; }
+            .table tbody tr:last-child > * { border-bottom: 0; }
+            .table tbody tr:last-child > :first-child { border-bottom-left-radius: .8rem; }
+            .table tbody tr:last-child > :last-child { border-bottom-right-radius: .8rem; }
+            .table tbody tr:hover > td { background: #f8faff; }
+            .table tbody th { min-width: 9rem; color: var(--muted); font-weight: 600; }
+            .table td[colspan] { padding: 2.5rem 1rem; color: var(--muted); text-align: center; }
+            .table td a { display: inline-block; margin: .15rem .65rem .15rem 0; font-weight: 600; }
+
+            body > a,
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 2.75rem;
+                padding: .65rem 1.1rem;
+                border: 1px solid var(--accent);
+                border-radius: .55rem;
+                background: var(--accent);
+                color: #fff;
+                font-size: .92rem;
+                font-weight: 650;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            body > a { margin: 0 .5rem .75rem 0; }
+            body > a:hover,
+            .btn:hover { border-color: var(--accent-hover); background: var(--accent-hover); color: #fff; }
+            body > a[href$="/edit"] { background: var(--surface); color: var(--accent); }
+            body > a[href$="/edit"]:hover { background: #edf2ff; }
+
+            body > form:has(input:not([type="hidden"]), select, textarea) {
+                max-width: 48rem;
+                margin-bottom: 1.5rem;
+                padding: clamp(1.25rem, 3vw, 2.25rem);
+                border: 1px solid var(--line);
+                border-radius: .85rem;
+                background: var(--surface);
+                box-shadow: 0 4px 20px #202b3c05;
+            }
+            form > div[id] > div { margin-bottom: 1.25rem; }
+            form label { display: block; margin-bottom: .4rem; font-size: .9rem; font-weight: 600; }
+            form :where(input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]), select, textarea) {
+                display: block;
+                width: 100%;
+                min-height: 2.75rem;
+                padding: .65rem .8rem;
+                border: 1px solid #cbd3df;
+                border-radius: .45rem;
+                background: #fff;
+                color: var(--ink);
+                font: inherit;
+            }
+            form textarea { min-height: 8rem; resize: vertical; }
+            form select[multiple] { min-height: 9rem; }
+            form input[type="checkbox"],
+            form input[type="radio"] { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); }
+            form input:disabled,
+            form select:disabled,
+            form textarea:disabled { background: #edf1f7; color: var(--muted); cursor: not-allowed; }
+            form input:user-invalid,
+            form textarea:user-invalid { border-color: #b93838; }
+            form > .form-control { margin-bottom: 1.25rem; }
+            form > .btn { margin-top: .5rem; }
+            body > form:not(:has(input:not([type="hidden"]), select, textarea)) { margin-top: .5rem; }
+            body > form:not(:has(input:not([type="hidden"]), select, textarea)) .btn {
+                border-color: #edc5c5;
+                background: #fff1f1;
+                color: #a62727;
+            }
+            body > form:not(:has(input:not([type="hidden"]), select, textarea)) .btn:hover {
+                border-color: #a62727;
+                background: #a62727;
+                color: #fff;
+            }
+
+            @media (max-width: 767px) {
+                body > .navbar { margin-bottom: 1.75rem; }
+                .table { display: block; overflow-x: auto; }
+                .table > :not(caption) > * > * { min-width: 7rem; padding: .8rem; }
+                .table td:last-child a { display: block; }
+                .offcanvas-body .navbar-nav { gap: .5rem; }
+            }
+        </style>
     </head>
     <body>
+        {{ render(controller("App\\Controller\\MenuController::_menu")) }}
         {% block body %}{% endblock %}
     </body>
 </html>

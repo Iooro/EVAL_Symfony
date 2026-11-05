@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Benevole;
 use App\Entity\Oeuvre;
 use App\Entity\Photo;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,10 +19,6 @@ class PhotoType extends AbstractType
             ->add('etat_oeuvre')
             ->add('id_oeuvre', EntityType::class, [
                 'class' => Oeuvre::class,
-                'choice_label' => 'id',
-            ])
-            ->add('id_benevole', EntityType::class, [
-                'class' => Benevole::class,
                 'choice_label' => 'id',
             ])
         ;

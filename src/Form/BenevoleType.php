@@ -6,6 +6,7 @@ use App\Entity\Benevole;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class BenevoleType extends AbstractType
 {
@@ -13,8 +14,15 @@ class BenevoleType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles')
-            ->add('password')
+            ->add('plainPassword', PasswordType::class, [
+                'label' => 'Mot de passe',
+                'mapped' => false,
+                'required' => $options['data']->getId() === null,
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                ],
+                'help' => 'En modification, laissez vide pour conserver le mot de passe actuel.',
+            ])
             ->add('nom')
             ->add('prenom')
         ;

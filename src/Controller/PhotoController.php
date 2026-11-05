@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\ExpressionLanguage\Expression;
 
 #[Route('/photo')]
 final class PhotoController extends AbstractController
@@ -17,8 +19,12 @@ final class PhotoController extends AbstractController
     #[Route(name: 'app_photo_index', methods: ['GET'])]
     public function index(PhotoRepository $photoRepository): Response
     {
+        $photos = $photoRepository->findBy([
+            'id_benevole' => $this->getUser(),
+        ]);
+
         return $this->render('photo/index.html.twig', [
-            'photos' => $photoRepository->findAll(),
+            'photos' => $photos,
         ]);
     }
 
@@ -26,6 +32,8 @@ final class PhotoController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $photo = new Photo();
+        $photo->setIdBenevole($this->getUser());
+
         $form = $this->createForm(PhotoType::class, $photo);
         $form->handleRequest($request);
 
@@ -43,6 +51,7 @@ final class PhotoController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_photo_show', methods: ['GET'])]
+    #[IsGranted(new Expression('user.getId() == subject.getId()'),subject: 'photo',message: 'Vous ne pouvez agir que sur vos propre photos.',)]
     public function show(Photo $photo): Response
     {
         return $this->render('photo/show.html.twig', [
@@ -51,6 +60,7 @@ final class PhotoController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_photo_edit', methods: ['GET', 'POST'])]
+    #[IsGranted(new Expression('user.getId() == subject.getId()'),subject: 'photo',message: 'Vous ne pouvez agir que sur vos propre photos.',)]
     public function edit(Request $request, Photo $photo, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PhotoType::class, $photo);
@@ -69,6 +79,7 @@ final class PhotoController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_photo_delete', methods: ['POST'])]
+    #[IsGranted(new Expression('user.getId() == subject.getId()'),subject: 'photo',message: 'Vous ne pouvez agir que sur vos propre photos.',)]
     public function delete(Request $request, Photo $photo, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$photo->getId(), $request->getPayload()->getString('_token'))) {
