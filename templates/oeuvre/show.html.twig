@@ -13,12 +13,13 @@
                 <td>
                     <div class="d-flex flex-wrap gap-3">
                         {% for photo in oeuvre.photos %}
-                            <img
-                                src="{{ asset(photo.nomFichier) }}"
-                                class="oeuvre-photo rounded-2 object-fit-cover"
-                                alt="{{ oeuvre.titre }}"
-                                loading="lazy"
-                            >
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ asset(photo.nomFichier) }}" class="card-img-top oeuvre-photo rounded-2 object-fit-cover" alt="{{ oeuvre.titre }}" loading="lazy">
+                                <div class="card-body">
+                                    <p class="card-text">Commentaire : {{ photo.etatOeuvre }}</p>
+                                    <p class="card-text"><small>Date de prise : {{ photo.datePriseVue ? photo.datePriseVue|date('Y-m-d') : '' }}</small></p>
+                                </div>
+                            </div>
                         {% else %}
                             <span class="text-body-secondary">Aucune photo</span>
                         {% endfor %}
