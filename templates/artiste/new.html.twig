@@ -3,9 +3,9 @@
 {% block title %}Ajouter un artiste{% endblock %}
 
 {% block body %}
-    <h1>Ajouter un artiste</h1>
+    <h1 class="h2 mb-4">Ajouter un artiste</h1>
 
     {{ include('artiste/_form.html.twig') }}
 
-    <a href="{{ path('app_artiste_index') }}">Retour</a>
+    <a class="btn btn-outline-secondary mb-2" href="{{ path('app_artiste_index') }}">Retour</a>
 {% endblock %}

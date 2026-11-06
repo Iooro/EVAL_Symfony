@@ -3,10 +3,11 @@
 {% block title %}Benevole index{% endblock %}
 
 {% block body %}
-    <h1>Benevole index</h1>
+    <h1 class="h2 mb-4">Benevole index</h1>
 
-    <table class="table">
-        <thead>
+    <div class="table-responsive border rounded-3 bg-white mb-4">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
             <tr>
                 <th>Id</th>
                 <th>Email</th>
@@ -23,9 +24,9 @@
                 <td>{{ benevole.nom }}</td>
                 <td>{{ benevole.prenom }}</td>
                 <td>
-                    <a href="{{ path('app_benevole_show', {'id': benevole.id}) }}">Voir</a>
+                    <a class="btn btn-sm btn-outline-primary me-1 mb-1" href="{{ path('app_benevole_show', {'id': benevole.id}) }}">Voir</a>
                     {% if app.user.id == benevole.id %}
-                        <a href="{{ path('app_benevole_edit', {'id': benevole.id}) }}">Modifier</a>
+                        <a class="btn btn-sm btn-outline-primary me-1 mb-1" href="{{ path('app_benevole_edit', {'id': benevole.id}) }}">Modifier</a>
                     {% endif %}
                 </td>
             </tr>
@@ -36,6 +37,7 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
 
-    <a href="{{ path('app_benevole_new') }}">Ajouter</a>
+    <a class="btn btn-primary mb-2" href="{{ path('app_benevole_new') }}">Ajouter</a>
 {% endblock %}

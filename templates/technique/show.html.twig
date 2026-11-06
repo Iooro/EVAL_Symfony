@@ -3,9 +3,10 @@
 {% block title %}Technique{% endblock %}
 
 {% block body %}
-    <h1>Technique</h1>
+    <h1 class="h2 mb-4">Technique</h1>
 
-    <table class="table">
+    <div class="table-responsive border rounded-3 bg-white mb-4">
+    <table class="table table-hover align-middle mb-0">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -17,10 +18,11 @@
             </tr>
         </tbody>
     </table>
+    </div>
 
-    <a href="{{ path('app_technique_index') }}">Retour</a>
+    <a class="btn btn-outline-secondary mb-2" href="{{ path('app_technique_index') }}">Retour</a>
 
-    <a href="{{ path('app_technique_edit', {'id': technique.id}) }}">Modifier</a>
+    <a class="btn btn-sm btn-outline-primary me-1 mb-1" href="{{ path('app_technique_edit', {'id': technique.id}) }}">Modifier</a>
 
     {{ include('technique/_delete_form.html.twig') }}
 {% endblock %}

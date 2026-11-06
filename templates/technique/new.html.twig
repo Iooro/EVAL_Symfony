@@ -3,9 +3,9 @@
 {% block title %}Ajouter Technique{% endblock %}
 
 {% block body %}
-    <h1>Ajouter une Technique</h1>
+    <h1 class="h2 mb-4">Ajouter une Technique</h1>
 
     {{ include('technique/_form.html.twig') }}
 
-    <a href="{{ path('app_technique_index') }}">Retour</a>
+    <a class="btn btn-outline-secondary mb-2" href="{{ path('app_technique_index') }}">Retour</a>
 {% endblock %}

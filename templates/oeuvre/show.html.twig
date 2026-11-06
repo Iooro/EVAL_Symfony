@@ -3,10 +3,28 @@
 {% block title %}Oeuvre{% endblock %}
 
 {% block body %}
-    <h1>Oeuvre</h1>
+    <h1 class="h2 mb-4">Oeuvre</h1>
 
-    <table class="table">
-        <tbody>
+    <div class="table-responsive border rounded-3 bg-white mb-4">
+    <table class="table table-hover align-middle mb-0">
+        <body>
+            <tr>
+                <th>Photos</th>
+                <td>
+                    <div class="d-flex flex-wrap gap-3">
+                        {% for photo in oeuvre.photos %}
+                            <img
+                                src="{{ asset(photo.nomFichier) }}"
+                                class="oeuvre-photo rounded-2 object-fit-cover"
+                                alt="{{ oeuvre.titre }}"
+                                loading="lazy"
+                            >
+                        {% else %}
+                            <span class="text-body-secondary">Aucune photo</span>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
             <tr>
                 <th>Id</th>
                 <td>{{ oeuvre.id }}</td>
@@ -29,10 +47,11 @@
             </tr>
         </tbody>
     </table>
+    </div>
 
-    <a href="{{ path('app_oeuvre_index') }}">Retour</a>
+    <a class="btn btn-outline-secondary mb-2" href="{{ path('app_oeuvre_index') }}">Retour</a>
 
-    <a href="{{ path('app_oeuvre_edit', {'id': oeuvre.id}) }}">Modifier</a>
+    <a class="btn btn-sm btn-outline-primary me-1 mb-1" href="{{ path('app_oeuvre_edit', {'id': oeuvre.id}) }}">Modifier</a>
 
     {{ include('oeuvre/_delete_form.html.twig') }}
 {% endblock %}

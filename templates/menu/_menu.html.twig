@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-sm bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{ path('app_home') }}">Accueil</a>
+<nav class="navbar navbar-expand-xl bg-white border-bottom py-3">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{{ path('app_home') }}">Accueil</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
@@ -12,9 +12,9 @@
         <button class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
       </div>
       
-      <div class="offcanvas-body">
+      <div class="offcanvas-body align-items-xl-center gap-3">
         {% if app.user %}
-          <ul class="navbar-nav">
+          <ul class="navbar-nav gap-1">
               <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_artiste_index') }}">Artistes</a>
               </li>
@@ -30,15 +30,18 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_technique_index') }}">Technique</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_lieu_index') }}">Lieux</a>
+              </li>
           </ul>
         {% endif %}
-        
-        <div class="connexion">
+
+        <div class="d-flex flex-column flex-xl-row align-items-xl-center gap-3 ms-xl-auto mt-3 mt-xl-0">
           {% if app.user %}
-            <p class="connexion-user"><span>Connecté en tant que</span> <strong>{{ app.user.userIdentifier }}</strong></p>
-            <a class="btn connexion-logout" href="{{ path('app_logout') }}">Se déconnecter</a>
+            <p class="small text-body-secondary mb-0 text-break"><span class="d-block">Connecté en tant que</span> <strong>{{ app.user.userIdentifier }}</strong></p>
+            <a class="btn btn-outline-primary text-nowrap" href="{{ path('app_logout') }}">Se déconnecter</a>
           {% else %}
-            <a class="btn" href="{{ path('app_login') }}">Se connecter</a>
+            <a class="btn btn-primary text-nowrap" href="{{ path('app_login') }}">Se connecter</a>
           {% endif %}
         </div>
       </div>

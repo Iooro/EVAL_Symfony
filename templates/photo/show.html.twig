@@ -3,9 +3,10 @@
 {% block title %}Photo{% endblock %}
 
 {% block body %}
-    <h1>Photo</h1>
+    <h1 class="h2 mb-4">Photo</h1>
 
-    <table class="table">
+    <div class="table-responsive border rounded-3 bg-white mb-4">
+    <table class="table table-hover align-middle mb-0">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -16,8 +17,12 @@
                 <td>{{ photo.datePriseVue ? photo.datePriseVue|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>Nom du fichier</th>
-                <td>{{ photo.nomFichier }}</td>
+                <th>Image</th>
+                <td>
+                    {% if photo.nomFichier %}
+                        <img src="{{ asset(photo.nomFichier) }}" alt="Photo de l'oeuvre" width="160" loading="lazy" class="img-fluid rounded" >
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Etat de l'oeuvre</th>
@@ -25,10 +30,11 @@
             </tr>
         </tbody>
     </table>
+    </div>
 
-    <a href="{{ path('app_photo_index') }}">Retour</a>
+    <a class="btn btn-outline-secondary mb-2" href="{{ path('app_photo_index') }}">Retour</a>
 
-    <a href="{{ path('app_photo_edit', {'id': photo.id}) }}">Modifier</a>
+    <a class="btn btn-sm btn-outline-primary me-1 mb-1" href="{{ path('app_photo_edit', {'id': photo.id}) }}">Modifier</a>
 
     {{ include('photo/_delete_form.html.twig') }}
 {% endblock %}

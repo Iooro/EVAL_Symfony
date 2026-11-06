@@ -3,11 +3,11 @@
 {% block title %}Modifier un Artiste{% endblock %}
 
 {% block body %}
-    <h1>Modifier Artiste</h1>
+    <h1 class="h2 mb-4">Modifier Artiste</h1>
 
     {{ include('artiste/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('app_artiste_index') }}">Retour</a>
+    <a class="btn btn-outline-secondary mb-2" href="{{ path('app_artiste_index') }}">Retour</a>
 
     {{ include('artiste/_delete_form.html.twig') }}
 {% endblock %}

@@ -2,9 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Oeuvre;
 use App\Entity\Technique;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,11 +13,6 @@ class TechniqueType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('oeuvres', EntityType::class, [
-                'class' => Oeuvre::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
         ;
     }
 

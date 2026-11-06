@@ -3,9 +3,9 @@
 {% block title %}Ajouter Oeuvre{% endblock %}
 
 {% block body %}
-    <h1>Ajouter une Oeuvre</h1>
+    <h1 class="h2 mb-4">Ajouter une Oeuvre</h1>
 
     {{ include('oeuvre/_form.html.twig') }}
 
-    <a href="{{ path('app_oeuvre_index') }}">Retour</a>
+    <a class="btn btn-outline-secondary mb-2" href="{{ path('app_oeuvre_index') }}">Retour</a>
 {% endblock %}
