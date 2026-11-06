@@ -22,7 +22,7 @@
 
     <a class="btn btn-outline-secondary mb-2" href="{{ path('app_technique_index') }}">Retour</a>
 
-    <a class="btn btn-sm btn-outline-primary me-1 mb-1" href="{{ path('app_technique_edit', {'id': technique.id}) }}">Modifier</a>
+    <a class="btn btn-outline-success me-1 mb-1" href="{{ path('app_technique_edit', {'id': technique.id}) }}">Modifier</a>
 
     {{ include('technique/_delete_form.html.twig') }}
 {% endblock %}
